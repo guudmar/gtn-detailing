@@ -102,7 +102,7 @@
     const bone = document.querySelector('.svc');
     if (nav && bone) ScrollTrigger.create({ trigger: bone, start: 'top 40px', end: 'bottom 40px', toggleClass: { targets: nav, className: 'is-dark' } });
     const stageEl = document.getElementById('bay');
-    if (nav && stageEl && root.classList.contains('gl')) ScrollTrigger.create({ trigger: stageEl, start: 'top top', end: 'bottom 40px', toggleClass: { targets: nav, className: 'is-home' } });
+    if (nav && stageEl && root.classList.contains('seq')) ScrollTrigger.create({ trigger: stageEl, start: 'top top', end: 'bottom 40px', toggleClass: { targets: nav, className: 'is-home' } });
 
     // Фото во всю ширину едет медленнее страницы.
     gsap.utils.toArray('.bleed img').forEach((img) => {
@@ -174,7 +174,7 @@
     });
   }
 
-  // Рельса глав 3D-сцены.
+  // Рельса глав сцены с роликами.
   const bay = document.getElementById('bay');
   document.querySelectorAll('[data-go]').forEach((b) => {
     b.addEventListener('click', () => {
@@ -184,7 +184,7 @@
   });
 
   // На главной анимации ждут, пока откроется загрузчик: иначе заголовки отыграют под ним.
-  if (root.classList.contains('gl') && !root.classList.contains('gl-ready')) {
+  if (root.classList.contains('seq') && !root.classList.contains('seq-ready')) {
     document.addEventListener('gtn:ready', start, { once: true });
   } else {
     start();

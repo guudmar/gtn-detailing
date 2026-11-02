@@ -10,11 +10,11 @@
 <script>
 (() => {
   const r = document.documentElement; r.classList.add('js');
-  const c = document.createElement('canvas');
-  if (c.getContext('webgl2') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    r.classList.add('gl');
-    // Если сцена не успела за 20 секунд, показываем обычную версию.
-    setTimeout(() => { if (!r.classList.contains('gl-ready')) { r.classList.remove('gl'); r.classList.add('gl-failed'); document.dispatchEvent(new CustomEvent('gtn:ready')); } }, 20000);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    r.classList.add('seq');
+    new Image().src = `assets/frames/${innerWidth / innerHeight < 0.8 ? 'tall' : 'wide'}/door/0001.webp`;
+    // Если кадры не успели за 20 секунд, показываем обычную версию.
+    setTimeout(() => { if (!r.classList.contains('seq-ready')) { r.classList.remove('seq'); r.classList.add('seq-failed'); document.dispatchEvent(new CustomEvent('gtn:ready')); } }, 20000);
   }
 })();
 </script>
@@ -23,7 +23,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=TikTok+Sans:wdth,wght@75..150,300..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 </head>
 <body>
 <div class="loader" aria-hidden="true">
@@ -52,7 +51,7 @@
 <main>
   <section class="bay" id="bay" aria-label="Машина проходит через бокс GTN">
     <div class="bay__stage">
-      <canvas class="bay__gl" aria-hidden="true"></canvas>
+      <canvas class="bay__canvas" aria-hidden="true"></canvas>
       <img class="bay__photo" src="https://avatars.mds.yandex.net/get-altay/15042938/2a0000019ac4c0ab3db8fd70a6396c42b70d/XXXL" referrerpolicy="no-referrer" width="1600" height="1067" alt="Тёмный BMW в пене под шестигранным потолком бокса GTN, рядом мастер с пистолетом">
 
       <div class="ch ch--door" data-in="-1" data-out="0.05" data-fade="0.012">
@@ -83,7 +82,6 @@
       <div class="ch ch--end" data-in="0.905" data-out="1.1">
         <div>
           <p class="t-h"><span class="m"><span>Чистота,</span></span><span class="m"><span>которую видно</span></span></p>
-          <p class="hint">Потяните, чтобы покрутить машину</p>
         </div>
         <a class="btn" href="https://t.me/gtn_detailing">Записаться</a>
       </div>
@@ -193,7 +191,7 @@
       <span>Каждый день, 10:00–21:00</span>
     </div>
   </div>
-  <div class="foot__legal"><span>© GTN Detailing</span><span>Фото: GTN Detailing, Яндекс Карты. 3D-модель машины: vicent091036</span></div>
+  <div class="foot__legal"><span>© GTN Detailing</span><span>Фото: GTN Detailing, Яндекс Карты</span></div>
   <div class="foot__mark" aria-hidden="true">GTN</div>
 </footer>
 
@@ -202,8 +200,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script src="assets/js/motion.js"></script>
-<script type="module">
-if (document.documentElement.classList.contains('gl')) import('./assets/js/bay3d.js');
-</script>
+<script src="assets/js/bay.js"></script>
 </body>
 </html>
